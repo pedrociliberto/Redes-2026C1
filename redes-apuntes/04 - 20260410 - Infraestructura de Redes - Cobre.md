@@ -1,4 +1,4 @@
-## Clase 4 - Infraestructura de Redes
+## Clase 4 - Infraestructura de Redes - Cobre
 
 ### Cable de par trenzado
 
