@@ -69,7 +69,7 @@ En altas frecuencias, se produce la **diafonía**:
 
 En la imagen se muestran los **anchos de banda** (Mbps/Gbps) y las **frecuencias** (MHz) de cada categoría:
 
-- Los `Cat 5` (*Fast Ethernet*) ya no se usan; los `5e` sí pero ya están viéndose opacados por los `6` (*Gigabit*) ya que se pueden resolver los mismos problemas con si**milares costos y mayores ventajas**.
+- Los `Cat 5` (*Fast Ethernet*) ya no se usan; los `5e` sí pero ya están viéndose opacados por los `6` (*Gigabit*) ya que se pueden resolver los mismos problemas con **similares costos y mayores ventajas**.
 - `Cat 6` a `Cat 7`: hay una brecha significante en el ancho de banda, pero el tema de la **distancia de uso (en metros)** es vital: pierde mucha efectividad. A la hora de implementarlos en empresas, se terminan decidiendo por soluciones más baratas (`6` o `6a`). `6a` puede valer un 70% más caro que el `6`.
 - Los `Cat 8` ya **pierden muchísima distancia** y no suelen valer la pena (prácticamente no se usan en el mercado, aunque existen fabricantes).
 

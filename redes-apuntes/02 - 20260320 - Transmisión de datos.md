@@ -25,7 +25,44 @@
 - Es un paquete de información, conjunto de bits.
 - La trama SDH va encapsulada en una estructura llamada **contenedor**. 
 - Luego se añaden **cabeceras de control** para identificar su contenido.
+#### Jerarquía de transmisión
 
+- Basándonos en un canal de Voz digitalizado a **8Khz** (doble de la frecuencia máxima de la voz) con 8 bits nos arroja una trama de 64Kbps.
+- Si concatenamos 32 canales de voz de 64 Kbps nos da una trama de 2048 = 2Mbps (SDH).
+- Tramas SONET de 24 canales implica 1536 = 1.5Mbps
+
+**Estructura**:
+
+- Se representa como una bloque de 9 filas x 270 columnas (compuesto por **bytes** - 8 bits).
+- Cada trama dura 125 microsegundos, lo que significa que transmiten **8000 tramas por segundo**.
+- De las 270 columnas:
+	- Primeras 9 - **sobrecarga (overhead)**: información de gestión, control y mantenimiento (regeneración y multiplexación).
+	- Las otras 261 - **carga útil (payload)**: transportan los datos encapsulados en contenedores virtuales.
+
+**Tramas**:
+
+Trama 2Mbps = E1
+Trama 34 Mbps = E3
+
+- **STM-1** = 8000 * (270 columnas * 9 filas * 8 bits) = 155 Mbps.
+- **STM-4** = 4 * 8000 * (270 columnas * 9 filas * 8 bits) = 622 Mbps.
+- **STM-16** = 16 * 8000 * (270 columnas * 9 filas * 8 bits) = 2.5 Gbps.
+- **STM-64** = 64 * 8000 * (270 columnas * 9 filas * 8 bits) = 10 Gbps.
+- **STM-256** = 256 * 8000 * (270 columnas * 9 filas * 8 bits) = 40 Gbps.
+
+Los niveles superiores a STM-1 se logran **multiplexando a nivel de byte** varias estructuras STM-1.
+
+**SONET**:
+
+Jerarquía americana SONET: estándar de red óptica sincrónica ampliamente adoptada en América del Norte, diseñada para soportar varios servicios de transmisión de datos. 
+
+En esta jerarquía tenemos:
+
+- **T1 o DS1**: 1.536 Mbps
+- **T3 o DS3**: 44.736 Mbps
+- **OC-3**: 155.52Mbps (= STM-1)
+- **OC-12**: 622.08Mbps (= STM-4)
+- **OC-48**: 2.488 Gbps (= STM-16)
 #### Teorema de Hamming
 
 - Corregir en caso de tener errores de transmisión.
@@ -37,7 +74,7 @@
 1. Construimos el **Transmisor (TX)**.
 
 `A B C D`: tira de bits original 
-
+	
 - **M** bits a proteger del código: 4 bits
 - Posibilidad de inversión de 1 bit (errado). Es decir, asumimos un bit errado en Hamming.
 - Se agregan **K** bits tal que: `2^K >= M + K + 1`
@@ -115,6 +152,6 @@ El número armado por los bits de paridad nos da el subíndice:
 - El ancho de banda es propio para cada usuario.
 - Ejemplo: **radio FM** (como las frecuencias 88.1MHz, 101.5MHz, etc).
 
-#### TDM (Time Division Multiplexing)
+#### WDM (Wavelength Division Multiplexing)
 
 - Se dividen las distintas longitudes de onda que hay en la señal. 
