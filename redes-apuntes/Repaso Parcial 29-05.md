@@ -25,7 +25,7 @@ Basado en lo estudiado en la **clase 2 de Transmisión de datos**, el código de
 A continuación, se desarrolla un ejemplo práctico para proteger un código binario de **4 bits (M=4)** con la posibilidad de que se invierta un bit durante la transmisión. Para corregir un bit erróneo, se requiere que el código tenga una **distancia mínima de** d=3.
 ##### 1. Determinación de bits de redundancia (K)
 
-Para proteger 4 bits de datos, se deben agregar bits de redundancia K que cumplan la ecuación $2K≥M+K+1$. En este caso, el menor valor que cumple la ecuación es $K=3$, por lo que la palabra final tendrá 7 bits en total.
+Para proteger 4 bits de datos, se deben agregar bits de redundancia K que cumplan la ecuación $2^K≥M+K+1$. En este caso, el menor valor que cumple la ecuación es $K=3$, por lo que la palabra final tendrá 7 bits en total.
 
 ##### 2. Estructura de la palabra de Hamming
 
@@ -575,6 +575,37 @@ El estándar ha evolucionado para soportar diversas velocidades y medios físico
 - **Red Multiservicio:** Ethernet es capaz de transportar tráfico en tiempo real, como **Telefonía IP y Video IP**, aunque este tráfico es sensible al **Jitter** (variación en la demora de entrega de paquetes).
 - **Power Over Ethernet (PoE):** Bajo variaciones del estándar (como 802.3af/at/bt), Ethernet permite enviar energía eléctrica y datos por un solo cable, alimentando dispositivos como cámaras IP o puntos de acceso.
 - **Distancias:** En conexiones de cobre, el estándar típicamente garantiza un alcance de **100 metros**, aunque existen soluciones homologadas que permiten extender esta distancia hasta los 250 metros sacrificando ancho de banda.
+
+#### Explicar el uso de redes Metro, tipos de servicio, acceso y VPNs.
+
+Las **redes Metro** (o MAN - _Metropolitan Area Network_) se definen como arquitecturas de **Capa 2** diseñadas para la interconexión de redes LAN extendidas en un ámbito geográfico metropolitano. Su uso principal radica en la **interconexión de sucursales** de empresas u organismos (como bancos) dentro de áreas urbanas densas, permitiendo que una casa central se vincule con múltiples puntos de forma eficiente. Estas redes son de carácter **multiservicio**, lo que significa que pueden transportar simultáneamente tráfico de voz, datos y video, siendo capaces de manejar aplicaciones en tiempo real sensibles al _jitter_ (variación de latencia).
+
+Tipos de Servicio y Calidad
+
+En cuanto a los tipos de servicio, las redes Metro ofrecen diferentes niveles de rendimiento según las necesidades del cliente:
+
+- **Garantía de Servicio (SLA):** Permiten establecer acuerdos de nivel de servicio para asegurar una **alta disponibilidad** y manejo de tráfico prioritario.
+- **Calidad de Servicio (QoS):** A diferencia de Internet público, las redes Metro y las líneas dedicadas permiten priorizar el tráfico para garantizar que aplicaciones críticas no sufran degradación.
+- **Categorías Heredadas:** Aunque se migra hacia IP, persisten conceptos de servicios como **CBR** (tasa de bits constante) o **VBR** (tasa de bits variable) provenientes de tecnologías como ATM y Frame Relay.
+- **Comparativa de Coste/Rendimiento:** Mientras que una línea dedicada (_Leased Line_) ofrece la menor latencia al mayor costo, la **Metro Ethernet** se posiciona como una solución de costo medio con baja latencia y alta escalabilidad.
+
+Redes de Acceso
+
+La jerarquía de red se divide fundamentalmente entre la **red de acceso** (la "última milla" que llega al usuario) y la **red de transporte** (el núcleo del operador). Los métodos de acceso varían según el perfil del usuario:
+
+- **Residencial:** Utiliza mayormente tecnologías como **ADSL** (sobre par de cobre), **Cablemódem** (sobre cable coaxial/HFC) y, cada vez más, **FTTH** (fibra hasta el hogar).
+- **Corporativo:** Las empresas suelen optar por accesos dedicados a través de **redes Metro (LAN to LAN)**, SDH o enlaces directos de fibra óptica para evitar compartir el medio con otros usuarios.
+- **Inalámbrico (RAM):** En lugares donde no llega el cable físico, se utilizan radioenlaces o la red de acceso por radio (RAN) para depositar el tráfico en el _backbone_ IP del operador.
+- **Redes Metro como acceso:** Es común que una conexión Metro Ethernet sirva como el puente de acceso hacia una red de transporte más robusta como **MPLS**.
+
+Redes Privadas Virtuales (VPN)
+
+El concepto de **VPN (Virtual Private Network)** consiste en utilizar la infraestructura de una red pública (como Internet o el transporte de un proveedor) para montar una **red privada propia**.
+
+- **VPN MPLS:** Es el estándar comercial para empresas, donde el proveedor utiliza su red física para crear "nubes" virtuales aisladas para cada cliente.
+- **Layer 2 VPN (L2VPN):** Funciona como una extensión de la LAN del cliente de forma transparente (como un cable largo entre sitios), a menudo configurado mediante un **pseudo wire**.
+- **Layer 3 VPN (L3VPN):** Utiliza enrutamiento IP y se basa en el uso de **VRF (Virtual Routing and Forwarding)** para que cada cliente tenga su propia tabla de rutas independiente dentro de los routers del proveedor.
+- **Seguridad:** Las VPN permiten crear **túneles encriptados** para que usuarios móviles o sucursales remotas accedan a recursos internos de forma segura a través de redes inseguras.
 ## Clase 9 - Capa 3
 
 #### Dar un ejemplo de ruteo en una red con BGP.
@@ -709,7 +740,7 @@ Los servidores deben implementar mecanismos de validación rigurosa para cada da
 
 - **Verificación de formato:** Se debe asegurar que los datos cumplan estrictamente con el formato esperado por la aplicación y que no contengan **código malicioso** que pueda provocar errores de memoria o ejecuciones remotas.
 
-4. Monitoreo y Detección en Tiempo Real
+4. **Monitoreo y Detección en Tiempo Real**
 
 El uso de herramientas de monitoreo de red permite identificar patrones de tráfico anómalos antes de que el servicio colapse.
 
@@ -717,7 +748,7 @@ El uso de herramientas de monitoreo de red permite identificar patrones de tráf
 - **Sistemas Anti-DDoS:** Existen plataformas especializadas de proveedores como **Arbor o Radware** que detectan automáticamente los ataques en curso, permitiendo a los administradores (o de forma automatizada) "apagar" una interfaz atacada en tiempo real para proteger el resto de la red.
 - **Centros de Operación:** Habitualmente este monitoreo se realiza en un **SOC** (_Security Operation Center_), donde operadores vigilan los parámetros de tráfico y disparan protocolos de acción ante irregularidades.
 
-5. Evolución hacia Protocolos más Seguros
+5. **Evolución hacia Protocolos más Seguros**
 
 Las fuentes mencionan que la seguridad de UDP también está evolucionando mediante el desarrollo de nuevos protocolos que añaden capas de protección sobre la base de UDP:
 
@@ -791,3 +822,18 @@ El ejemplo mencionado sobre los 60 canales de voz demuestra la escalabilidad de 
 - Esto es sumamente eficiente si se compara con el modelo tradicional: sin compresión, para 60 canales de voz se necesitarían **60 tramas de 64 Kbps**, lo cual equivaldría casi a un vínculo **E1 completo** (que posee 30/32 canales de 64 Kbps).
 
 En conclusión, esto funciona porque la tecnología permite **subdividir el ancho de banda físico** de 64 Kbps en sub-canales lógicos más pequeños mediante software y procesamiento digital, optimizando el uso de la infraestructura existente.
+
+#### Explicar los conceptos de NFV y sus avances en Edge Computing.
+
+La tecnología **NFV (Virtualización de Funciones de Red)** representa un cambio de paradigma en las telecomunicaciones, permitiendo que funciones de red que antes requerían hardware propietario y específico (como routers, firewalls o balanceadores de carga) ahora se ejecuten como **software sobre servidores estándar** conocidos como COTS (_Commercial Off-The-Shelf_). El concepto central es el **desacople entre el hardware y el software**, lo que permite a los operadores e industrias ganar flexibilidad, reducir costos de infraestructura y escalar servicios de forma casi instantánea mediante orquestación.
+
+Dentro de la arquitectura NFV, los componentes clave son las **VNF (Virtual Network Functions)**, que son las aplicaciones de red virtualizadas, y el marco de gestión **MANO** (_Management and Orchestration_). Este último incluye el orquestador (**NFVO**) para la gestión de servicios de red, el gestor de funciones (**VNFM**) para el ciclo de vida de las aplicaciones y el gestor de infraestructura (**VIM**) para administrar recursos como Kubernetes o OpenStack.
+
+**Avances en Edge Computing mediante NFV**
+
+El **Edge Computing** (computación en el borde) es una respuesta a la necesidad de procesar datos lo más cerca posible de su origen para garantizar **baja latencia y respuestas en tiempo real**. NFV es el habilitador tecnológico que permite llevar esta inteligencia al extremo de la red:
+
+- **Despliegue de funciones en el borde:** Gracias a la virtualización, funciones críticas como firewalls (**vFirewall**) o ruteadores (**vRouter**) pueden desplegarse en pequeños nodos de cómputo o "Data Centers de Borde" situados cerca de sensores de **IoT** o cámaras de seguridad industrial.
+- **Optimización para 5G y IoT:** Las redes 5G requieren una infraestructura extremadamente ágil que las redes tradicionales no pueden proveer; NFV permite crear **rebanadas de red (slicing)** específicas para aplicaciones de misión crítica en el borde, optimizando el ancho de banda al no tener que enviar todo el tráfico al núcleo centralizado.
+- **Avances en la Radio de Acceso (v-RAN):** Un avance significativo es la virtualización de la red de acceso inalámbrico, donde la unidad de banda base se desagrega en funciones de software como la **vBBU y vDU**, que se ejecutan en servidores genéricos en el borde para minimizar la latencia de la interfaz aérea.
+- **Fog Computing:** NFV también facilita la implementación de la **computación en la niebla (Fog)**, una capa intermedia entre el borde puro y la nube central que utiliza gateways locales para agregar y analizar información de múltiples sensores antes de su transmisión final, mejorando la resiliencia del sistema.
